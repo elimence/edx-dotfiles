@@ -16,17 +16,17 @@ sudo apt-get install screen
 
 # git pull and install dotfiles as well
 cd $HOME
-if [ -d ./dotfiles/ ]; then
-    mv dotfiles dotfiles.old
+if [ -d ./edx-dotfiles/ ]; then
+    mv edx-dotfiles edx-dotfiles.old
 fi
 
 git clone https://github.com/elimence/edx-dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
-ln -sb dotfiles/.bash_aliases .
-ln -sb dotfiles/.bash_functions .
+ln -sb edx-dotfiles/.screenrc .
+ln -sb edx-dotfiles/.bash_profile .
+ln -sb edx-dotfiles/.bashrc .
+ln -sb edx-dotfiles/.bashrc_custom .
+ln -sb edx-dotfiles/.bash_aliases .
+ln -sb edx-dotfiles/.bash_functions .
 
 # setup terminal to be git-aware
 cd $HOME
@@ -37,3 +37,4 @@ fi
 mkdir .bash
 cd .bash
 git clone https://github.com/jimeh/git-aware-prompt.git
+sudo reboot
