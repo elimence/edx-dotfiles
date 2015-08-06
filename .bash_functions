@@ -1,45 +1,32 @@
 
 # Working with manage.py
 
-py_list() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws help; }
+edx-list() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws help; }
 
-py_gencert() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws regenerate_user -u ${1:-honor@example.com} -c edX/Open_DemoX/edx_demo_course; }
+edx-create_user() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws create_user -e ${1:-user@example.com}; }
 
-py_user() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws create_user -e ${1:-user@example.com}; }
+edx-change_password() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws changepassword ${1:-user}; }
 
-py_pass() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws changepassword ${1:-user}; }
+edx-promote_to_staff() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws set_staff ${1:-user@example.com}; }
 
-py_staff() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws set_staff ${1:-user@example.com}; }
-
-py_lmshell() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws shell; }
-
-py_superuser() {
-	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws create_user -s -p edx -e ${1:-user@example.com};
-	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws changepassword ${2:-user};
-	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws shell
-
-	from django.contrib.auth.models import User;
-	me = User.objects.get(username="${2:-user}");
-	me.is_superuser = True;
-	me.is_staff = True;
-	me.save();
-}
+edx-django_shell() { sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws shell; }
 
 # Migrations args : lms/cms - defaults to lms
-py_migrate() {
+edx-migrate() {
 	sudo su edxapp -s /bin/bash;
 	cd ~;
 	source edxapp_env;
 	python /edx/app/edxapp/edx-platform/manage.py ${1:-lms} syncdb --migrate --settings=aws;
 }
 
-py_services() { sudo /edx/bin/supervisorctl status; }
+edx-service_status() { sudo /edx/bin/supervisorctl status; }
 
-py_restart-edx() { sudo /edx/bin/supervisorctl restart edxapp:; }
+edx-restart_edxapp() { sudo /edx/bin/supervisorctl restart edxapp:; }
 
-py_restart-workers() { sudo /edx/bin/supervisorctl restart edxapp_worker:; }
+edx-restart_workers() { sudo /edx/bin/supervisorctl restart edxapp_worker:; }
 
-py_compile() { 
+# allow selection of cms or lms
+edx-compile_assets() { 
 	sudo -H -u edxapp bash;
 	source /edx/app/edxapp/edxapp_env;
 	cd /edx/app/edxapp/edx-platform;
@@ -47,6 +34,28 @@ py_compile() {
 	paver update_assets lms --settings=aws;
 }
 
+# help menu
+edx-help() {
+	echo "----- Aliases -------"
+	echo "edx-goto_conf 	: navigate to configurations directory"
+	echo "edx-goto_pbks 	: navigate to playbooks subdirectory"
+	echo "edx-goto_platform : navigate to edx platform directory"
+	echo "edx-goto_lms 		: navigate to lms subdirectory"
+	echo "edx-goto_cms 		: navigate to cms subdirectory"
+	echo "edx-list_all		: list all edx aliases"
+
+	echo "----- Functions -------"
+	echo "edx-list 				: list all manage.py commands"
+	echo "edx-create_user 		: create create a new user using given email. defaults to user@example.com"
+	echo "edx-change_password 	: change password for specified username. defaults to user"
+	echo "edx-promote_to_staff 	: promote user to staff using given email. defaults to user@example.com"
+	echo "edx-django_shell 		: launch the django shell"
+	echo "edx-service_status 	: see what services are running"
+	echo "edx-restart_edxapp 	: restart lms/cms services"
+	echo "edx-restart_workers 	: restart worker services"
+	echo "edx-compile_assets 	: compile assets manually"
+	echo "edx-migrate 			: run migrations"
+}
 
 
 
