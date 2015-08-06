@@ -18,8 +18,12 @@ fi
 cd ~/edx-dotfiles
 git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
+
 if [[ "${reslog}" != "" ]] ; then
-  git merge origin/master # completing the pull
+    git merge origin/master # completing the pull
+    echo "successfully updated edx-dotfiles!"
+else
+    echo "edx-dotfiles is already up to date"
 fi
 
 
@@ -36,7 +40,13 @@ fi
 cd ~/.bash/git-aware-prompt;
 git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
+
 if [[ "${reslog}" != "" ]] ; then
-  git merge origin/master # completing the pull
+    git merge origin/master # completing the pull
+    echo "successfully updated git-aware-prompt"
+else
+    echo "git-aware-prompt is already up to date"
 fi
+
+
 
