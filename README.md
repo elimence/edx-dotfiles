@@ -13,4 +13,10 @@ To update an existing setup, do the following
 wget https://raw.githubusercontent.com/elimence/edx-dotfiles/master/update.sh -O - | bash
 ```
 
+There's also an alias named `edx-update_script`, you can use this command to update as well
+
+```sh
+edx-update_script
+```
+
 This will setup your brand new instance's bash environment to make it easier to work with edx by greating a bunch of helper aliases and functions to perform common tasks.
