@@ -20,7 +20,7 @@ git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
   git merge origin/master # completing the pull
-
+fi
 
 
 # setup terminal to be git-aware
@@ -38,3 +38,5 @@ git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
 if [[ "${reslog}" != "" ]] ; then
   git merge origin/master # completing the pull
+fi
+
