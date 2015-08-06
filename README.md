@@ -1,21 +1,16 @@
 dotfiles.git
 ============
 Clone and run this on a new EC2 instance running Ubuntu 12.04.2 LTS to
-configure your `bash` and `emacs` development environment as follows:
+configure your `bash` development environment as follows:
 
 ```sh
-cd $HOME
-git clone https://github.com/elimence/dotfiles.git
-ln -sb dotfiles/.screenrc .
-ln -sb dotfiles/.bash_profile .
-ln -sb dotfiles/.bashrc .
-ln -sb dotfiles/.bashrc_custom .
-mv .emacs.d .emacs.d~
-ln -s dotfiles/.emacs.d .
+wget https://raw.githubusercontent.com/elimence/edx-dotfiles/master/setup.sh -O - | bash
 ```
 
-See also http://github.com/elimence/setup to install prerequisite
-programs. If all goes well, in addition to a more useful prompt, now you can
-do `emacs -nw hello.js` and hitting `C-c!` to launch an interactive SSJS
-REPL, among many other features. See the
-for more details.
+To update an existing setup, do the following
+
+```sh
+wget https://raw.githubusercontent.com/elimence/edx-dotfiles/master/update.sh -O - | bash
+```
+
+This will setup your brand new instance's bash environment to make it easier to work with edx by greating a bunch of helper aliases and functions to perform common tasks.
