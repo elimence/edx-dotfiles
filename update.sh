@@ -19,7 +19,7 @@ cd ~/edx-dotfiles
 git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
 
-if [[ "${reslog}" != "" ]] ; then
+if [ "${reslog}" != "" ] ; then
     git merge origin/master # completing the pull
     echo "successfully updated edx-dotfiles!"
 else
@@ -41,7 +41,7 @@ cd ~/.bash/git-aware-prompt;
 git fetch origin
 reslog=$(git log HEAD..origin/master --oneline)
 
-if [[ "${reslog}" != "" ]] ; then
+if [ "${reslog}" != "" ] ; then
     git merge origin/master # completing the pull
     echo "successfully updated git-aware-prompt"
 else
