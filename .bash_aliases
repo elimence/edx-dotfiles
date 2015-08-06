@@ -26,3 +26,4 @@ alias edx-goto_cms='cd /edx/app/edxapp/edx-platform/cms'
 ### *************** HELP ALIASES ***************
 
 alias edx-list_all="alias | grep edx-"
+alias edx-update_script="sh ~/edx-dotfiles/update.sh"
