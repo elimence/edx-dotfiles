@@ -67,19 +67,21 @@ edx-compile_assets() {
 }
 
 edx-reset_rabbitmq() {
-	# sudo bash -c "
-	# 	. /edx/app/edx_ansible/venvs/edx_ansible/bin/activate
-	# 	cd /edx/app/edx_ansible/edx_ansible/playbooks/
-	# 	ansible-playbook -c local -i 'localhost,' ./run_role.yml -e 'role=rabbitmq' -e@/edx/app/edx_ansible/server-vars.yml
-	# "
+	sudo bash -c "
+		. /edx/app/edx_ansible/venvs/edx_ansible/bin/activate
+		cd /edx/app/edx_ansible/edx_ansible/playbooks/
+		ansible-playbook -c local -i 'localhost,' ./run_role.yml -e 'role=rabbitmq' -e@/edx/app/edx_ansible/server-vars.yml
+	"
 
-	cd /etc/rabbitmq
-	if [ -d rabbitmq-env.conf.bak ]; then
-	    sudo rm -rf rabbitmq-env.conf.bak
-	fi
-	sudo cp rabbitmq-env.conf rabbitmq-env.conf.bak
-	sudo sed -i "s/\($RABBITMQ_NODE_IP_ADDRESS *= *\).*/\1$127.0.0.1/" /etc/rabbitmq/rabbitmq-env.conf
-	sudo service rabbitmq-server restart
+	cur="$PWD"
+    cd /etc/rabbitmq
+    if [ -d rabbitmq-env.conf.bak ]; then
+        sudo rm -rf rabbitmq-env.conf.bak
+    fi
+    sudo cp rabbitmq-env.conf rabbitmq-env.conf.bak
+    sudo sed -i -e '/RABBITMQ_NODE_IP_ADDRESS=/ s/=.*/=127.0.0.1/' rabbitmq-env.conf
+    sudo service rabbitmq-server restart
+    cd "$cur"
 }
 
 edx-edit_server-vars() {
