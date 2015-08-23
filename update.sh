@@ -1,6 +1,8 @@
 #!/bin/bash
 # update dotfiles
 
+current_directory="$PWD"
+
 # git pull and install dotfiles as well
 cd $HOME
 if [ ! -d ./edx-dotfiles/ ]; then
@@ -49,9 +51,5 @@ else
 fi
 
 
-# source files to make changes available
-# source ~/.bash_profile
-# source ~/.bashrc
-# source ~/.bashrc_custom
-# source ~/.bash_aliases
-# source ~/.bash_functions
+bash --login
+cd "$current_directory"
