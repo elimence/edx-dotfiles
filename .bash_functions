@@ -12,14 +12,13 @@ edx-create_user() {
 	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws create_user -e ${1:-user@example.com} 
 }
 
-edx-delete_user() {
-	cd /edx/app/edxapp/edx-platform
-	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws shell -c "
-		from django.contrib.auth.models import User
-		u=User.objects.get(email=${1:-user@example.com}); [obj.delete() for obj in u.preferences.all()];
-		u.delete()
-	"
-}
+# edx-delete_user() {
+# 	cd /edx/app/edxapp/edx-platform
+# 	sudo -u www-data /edx/bin/python.edxapp ./manage.py lms --settings aws shell
+# 	from django.contrib.auth.models import User
+# 	u=User.objects.get(email=${1:-user@example.com}); [obj.delete() for obj in u.preferences.all()];
+# 	u.delete()
+# }
 
 edx-change_password() {
 	cd /edx/app/edxapp/edx-platform
@@ -68,12 +67,17 @@ edx-compile_assets() {
 }
 
 edx-reset_rabbitmq() {
-	sudo bash -c "
-		. /edx/app/edx_ansible/venvs/edx_ansible/bin/activate
-		cd /edx/app/edx_ansible/edx_ansible/playbooks/
-		ansible-playbook -c local -i 'localhost,' ./run_role.yml -e 'role=rabbitmq' -e@/edx/app/edx_ansible/server-vars.yml
-	"
+	# sudo bash -c "
+	# 	. /edx/app/edx_ansible/venvs/edx_ansible/bin/activate
+	# 	cd /edx/app/edx_ansible/edx_ansible/playbooks/
+	# 	ansible-playbook -c local -i 'localhost,' ./run_role.yml -e 'role=rabbitmq' -e@/edx/app/edx_ansible/server-vars.yml
+	# "
 
+	cd /etc/rabbitmq
+	if [ -d rabbitmq-env.conf.bak ]; then
+	    sudo rm -rf rabbitmq-env.conf.bak
+	fi
+	sudo cp rabbitmq-env.conf rabbitmq-env.conf.bak
 	sudo sed -i "s/\($RABBITMQ_NODE_IP_ADDRESS *= *\).*/\1$127.0.0.1/" /etc/rabbitmq/rabbitmq-env.conf
 	sudo service rabbitmq-server restart
 }
