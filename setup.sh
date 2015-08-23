@@ -13,6 +13,7 @@ sudo apt-get dist-upgrade -y
 # install various programs
 sudo apt-get install -y git
 sudo apt-get install screen
+sudo apt-get install xclip  # needed to use pbcopy and pbpaste
 
 # git pull and install dotfiles as well
 cd $HOME
