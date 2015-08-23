@@ -50,9 +50,9 @@ fi
 
 
 # source files to make changes available
-source ~/.screenrc
-source ~/.bash_profile
-source ~/.bashrc
-source ~/.bashrc_custom
-source ~/.bash_aliases
-source ~/.bash_functions
+. ~/.screenrc
+. ~/.bash_profile
+. ~/.bashrc
+. ~/.bashrc_custom
+. ~/.bash_aliases
+. ~/.bash_functions
