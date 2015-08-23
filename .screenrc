@@ -17,10 +17,10 @@ defbce on
 mousetrack on
 
 # default windows
-screen -t Shell1  1 bash
-screen -t Shell2  2 bash
-screen -t Python  3 python
-screen -t Media   4 bash
+screen -t EDX1  1 bash
+screen -t EDX2  2 bash
+# screen -t Python  3 python
+# screen -t Media   4 bash
 select 0
 bind c screen 1 # window numbering starts at 1 not 0
 bind 0 select 10

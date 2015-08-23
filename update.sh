@@ -50,7 +50,6 @@ fi
 
 
 # source files to make changes available
-. ~/.screenrc
 . ~/.bash_profile
 . ~/.bashrc
 . ~/.bashrc_custom
