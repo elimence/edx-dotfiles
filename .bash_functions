@@ -84,9 +84,10 @@ edx-reset_rabbitmq() {
     cd "$cur"
 }
 
-edx-edit_server-vars() {
+edx-edit_server_vars() {
 	sudo vim /edx/app/edx_ansible/server-vars.yml
 }
+
 
 edx-tail_logs() {
 	sudo tail -f /edx/var/log/{lms,cms,nginx}/*log
